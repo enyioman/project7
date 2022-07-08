@@ -118,3 +118,86 @@ sudo mkdir /mnt/apps
 sudo mkdir /mnt/opt 
 ```
 
+Mount logical volumes:
+
+```
+sudo mount /dev/webdata-vg/apps-lv /mnt/apps
+
+sudo mount /dev/webdata-vg/logs-lv /mnt/logs
+
+sudo mount /dev/webdata-vg/opt-lv /mnt/opt
+```
+
+Confirm mount:
+
+```
+df -h
+```
+
+![View mount](./media/df.png)
+
+
+Retrieve the UUID of the devices and update the `ftsab` file:
+
+
+```
+sudo blkid
+
+sudo vi /etc/fstab
+```
+
+Confirm the mount is okay and then reload:
+
+```
+sudo mount -a
+
+sudo systemctl daemon-reload
+```
+
+Install and configure the NFS to start on reboot, then confirm that it is running:
+
+```
+sudo yum -y update
+sudo yum install nfs-utils -y
+sudo systemctl start nfs-server.service
+sudo systemctl enable nfs-server.service
+sudo systemctl status nfs-server.service
+```
+
+Set up permission that will allow the web servers to read, write and execute files on the NFS:
+
+```
+sudo chown -R nobody: /mnt/apps
+sudo chown -R nobody: /mnt/logs
+sudo chown -R nobody: /mnt/opt
+
+sudo chmod -R 777 /mnt/apps
+sudo chmod -R 777 /mnt/logs
+sudo chmod -R 777 /mnt/opt
+
+sudo systemctl restart nfs-server.service
+```
+
+To Configure access to NFS for clients within the same subnet get the subnet CIDR of the NFS server.
+
+Open the exports file located in the etc directory:
+
+```
+sudo vi /etc/exports
+```
+
+Enter the below:
+
+```
+/mnt/apps <Subnet-CIDR>(rw,sync,no_all_squash,no_root_squash)
+/mnt/logs <Subnet-CIDR>(rw,sync,no_all_squash,no_root_squash)
+/mnt/opt <Subnet-CIDR>(rw,sync,no_all_squash,no_root_squash)
+```
+
+Run the below command:
+
+```
+sudo exportfs -arv
+```
+
+
