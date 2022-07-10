@@ -458,3 +458,7 @@ Access website with the the public ip address of all webservers and login.
 ![Tooling website](./media/loggedin.png)
 
 
+Tooling site accessed from the second server:
+
+
+![Tooling website](./media/2ndserver.png)
