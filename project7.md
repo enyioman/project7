@@ -1,16 +1,5 @@
 # DEVOPS TOOLING WEBSITE SOLUTION
 
-The website will display a dashboard of some of the most useful DevOps tools as listed below:
-
-- Jenkins
-- Kubernetes
-- JFrog Artifactory
-- Rancher
-- Docker
-- Grafana
-- Prometheus
-- Kibana
-
 
 The solution consists of the following components:
 
