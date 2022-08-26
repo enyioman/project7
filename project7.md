@@ -1,4 +1,4 @@
-# DEVOPS TOOLING WEBSITE SOLUTION
+# IMPLEMENTATION OF WEB APPLICATION ARCHITECTURE WITH A SINGLE DATABASE AND NFS SERVER
 
 
 The solution consists of the following components:
@@ -14,7 +14,7 @@ The solution consists of the following components:
 ## PREPARE THE NFS SERVER
 
 - Launch an EC2 instance with RHEL that will serve as "NFS Server".
-- Attach three volumes with the the same availability.
+- Attach three volumes with the same availability.
 - Inspect what block devices are attached to the server.
 
 ```
